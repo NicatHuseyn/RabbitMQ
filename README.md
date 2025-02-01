@@ -62,3 +62,78 @@ consumer arasındakı əlaqəni yaradan sistemdir. <br>
 <strong>Bir Message Broker içərisində birdən çox queue ola bilər.</strong> <br>
 Təbii ki, burada publisher hansı queue-ə mesaj atırsa, o queue-i təqib edən
 consumer öz işinə davam edəcək.
+
+# Message Broker Texnologiyaları Nələrdir?
+- RabbitMQ
+- Kafka
+- ActiveMQ
+- ZeroMQ
+- NSQ
+- İronMQ
+
+# RabbitMQ Nədir?
+Open source olan bir message queueing sistemidir. Erland dili ilə yazılmışdır. Cross
+platform olduğuna görə fərqli əməliyyat sistemlərində qurula bilər. Zəngin bir
+dokumentasiyaya malikdir. Cloud-da xidməti mövcuddur.
+
+# RabbitMQ-ü Niyə İstifadə Emtəliyik?
+Yazılmış proqramlarda scalable bir environment yaratmaq istəyiriksə, RabbitMQ
+istifadə edilə bilər. Scalabed environment dedikdə, yəni ödəmə etdik, fakturanın
+yaradılmasını gözləməkdənsə, bunu fərqli bir servisə alıb asinxron bir əlaqə qura
+bilərik. <br>
+Proqramlarımızda userlərdən gələn istəklərə anındaca cavab verə bilmiriksə ya da
+anlıq olmayan, zaman alan əməliyyatları araya salmalıyıqsa, useri gözlətmək yerinə
+bu tərz periodları asinxron bir şəkildə konfiqurasiya edib, proqram intensivliyini
+düşürməliyik. <br>
+Əks halda user lazımsız bir response time gecikməsinə məruz qalacaqdır və
+proqramımız əlehinə bir vəziyyət olacaqdır. <br>
+Bu kimi hallarda asinxron periodu kontrol edəcək olan struktur RabbitMQ-dür. <br>
+RabbitMQ, response time-ı uzun çəkəcək əməliyyatları proqramdan
+müstəqilləşdirəcək/asılılğdan azad edərək buradakı məsuliyyəti fərqli bir proqramın
+üzərinə götürməsinə imkan yaradacaq bir mexanizma bizə verir. <br>
+Bu mexanizma uzun çəkə biləcək maliyyətli işləri RabbitMQ vasitəsilə, quyruğa
+göndərəcək və bu quyruqdakı əməliyyatlar fərqli bir proqram tərəfindən
+hazırlanaraq response asinxron bir şəkildə <strong>əsas proqramdan asılı
+olmadan/müstəqil əldə ediləcəkdir.</strong> Beləcə əsas/ana proqramdakı intennsivlik
+mümkün qədər azaldılmış olacaqdır. <br>
+Bu hala abstact bir nümunə verməliyiksə:
+Bir web saytın hər hansı bir word faylını PDF formatına dönüşdürmə xidmətini
+verəcəyiksə, buradakı əməliyyat intensivliyini web proqramda etməkdən
+qaçmalıyıq. <br>
+Edilməsi gərəkən RabbitMQ vasitəsilə yaradılan bir quyruğa bütün dəyərlərin
+verilməsi və bu zaman daxilində əlaqəli quyruğu dinləyən fərqli bir proqram
+<br>
+vasitəsilə convert əməliyyatının həyata keçirilməsi gərəkir. Nəticə etibarı ilə əsas
+proqramı lazımsız response time-a məruz qalmadan lazımi dönüşdürmə əməliyyatı
+müvəffəqiyyətlə həayat keçirilmiş olacaqdır.
+
+# RabbitMQ Necə İşləyir
+<img src = "https://github.com/user-attachments/assets/2a83fd9e-7a12-4e03-9438-cd400fb669de"/>
+<br>
+Şəkildən görüldüyü kimi RabbitMQ fərqli strukturlarla/vasitələrlə bir bütövlük oratay
+qoyur.
+RabbitMQ, bir message broker olduğu üçün mesajları yayınlayan
+publisher/producer və bu mesajları istifadə edən consumer servisləri tərəfindən
+ortaq olaraq istifadə edilməkdədir. <br>
+<strong>
+Struktur olaraq Exchange və Queue strukturları üzərindən funksionallıq göstərə
+bilir.Exchange, mesajların necə istifadə ediləcəyinin modelini göstərən/verən
+bir strukturdur. Yəni, bir mesaj göndərdikdə hansı quyruğa gedəcək? Necə
+
+isitfadə olunacaq? Və.s. kimi bunların modelləri olacaq. Bu modellər Exchaneg-
+lər üzərindən bildiriləcək.
+</strong>
+<br>
+Publisher mesajı publish etdikdən sonra əlaqəli mesajı Exchange qarşılayacaq.
+Exchange isə müəyyən route ilə mesajı əlaqəli quyruğa yönləndirəcəkdir.
+(Mesajın hansı queue-a gedəcəyi exchange içərisindəki route-dan öyrənilir)
+<br>
+Burada Publisher və Consumerin hansı platform və hansı dillə yazıldığının heç bir
+əhəmiyyəti yoxdur. Bu arxitektura bütöv olaraq proqramlaşdırma dilindən asılı
+olmayaraq funksionallıq göstərəcəkdir.
+<br>
+Bütün bu zaman daxilində RabbitMQ AMPQ (Advanced Message Queuing Protocol)
+protokolunu isitfadə edərək faliyyət göstərməkdədir.
+Bu model sayəsində RabbitMQ, mesajarın güvənli və məsuldar bir şəkildə istifadə
+ediməsini və servislər arasındakı sağlam əlaqənin qurulmasını həyata keçirir.
+
