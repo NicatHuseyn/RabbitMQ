@@ -35,3 +35,30 @@ nömrəsi, müştəri məlumatları, product məlumatları və ya ödəmə məlu
 verilə bilər.
 Həmçinin message queue içərisindəki mesajların consumer tərəfindən sırası ilə işləndiyini
 deməliyik. (FİFO məntiqində)
+
+# Message Queue-nin Məqsədi Nədir?
+Bəzi hallarda bir birindən fərqli sistemlər arasında funksionallıq nöqteyi-nəzərdən
+sinxron xəbərləşmək user təcürbəsi nöqteyi nəzərdən çox da uyğun deyil.
+Buna bir misal göstərəcək olsaq, bir e-commerce proqramında ödəmə
+əməliyyatında sonra faktura yaratmaq üçün əlaqəli servisin funksiyasını sinxron bir
+şəkildə gözləmək və bunu son use-ə əks etdirmək heç də məntiqli bir davranış
+olmayacaqdır. Bu tərzdə hallarda sistemlər arasında sinxrondan əlavə asinxron
+əlaqə modeli mənimsənilir.
+Ödəmə nəticəsində userə sifrişin müvəffəqiyyətlə həyata keçdiyini aid bir nəticə
+qaytarılarkən, bir yandan da message queue-a faktura ilə əlaqənən bir mesaj
+göndərilməlidir. Ödəməni edərkən təsdiq mesajı gözləmək <strong>sinxron əlaqədir.</strong>
+
+# Sinxron və Asinxron Əlaqə Modelləri
+Tutuaq ki, 2 servisimiz var. Bu servislər bir-biri ilə əlaqə saxlayarkən bir response
+gözləyirlərsə bu bir asinxron əlaqədir. Asinxron əlaqdə isə response gözlənilməz.
+
+Mail göndərmək, faktura yaratmaq, stok güncəlləmək və.s. kimi zaman gəgrkdirən
+əməliyyatların asinxron əlaqə modeli ilə modellənməsi daha idealdır.
+
+# Message Broker Nədir?
+Message broker, RabbitMQ kimi texnologiyaların ümumi adıdır.
+Içərisində Message Queue-i saxlayan və bu queue üzərindən publisher/producer ilə
+consumer arasındakı əlaqəni yaradan sistemdir.
+<strong>Bir Message Broker içərisində birdən çox queue ola bilər.</strong>
+Təbii ki, burada publisher hansı queue-ə mesaj atırsa, o queue-i təqib edən
+consumer öz işinə davam edəcək.
