@@ -58,7 +58,7 @@ Mail göndərmək, faktura yaratmaq, stok güncəlləmək və.s. kimi zaman gəg
 # Message Broker Nədir?
 Message broker, RabbitMQ kimi texnologiyaların ümumi adıdır.
 Içərisində Message Queue-i saxlayan və bu queue üzərindən publisher/producer ilə
-consumer arasındakı əlaqəni yaradan sistemdir.
-<strong>Bir Message Broker içərisində birdən çox queue ola bilər.</strong>
+consumer arasındakı əlaqəni yaradan sistemdir. <br>
+<strong>Bir Message Broker içərisində birdən çox queue ola bilər.</strong> <br>
 Təbii ki, burada publisher hansı queue-ə mesaj atırsa, o queue-i təqib edən
 consumer öz işinə davam edəcək.
